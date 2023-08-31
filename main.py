@@ -12,34 +12,35 @@ def load_data(filename):
 
     with open(filename) as packages:
         package_data = csv.reader(packages, delimiter=',')
-        next(package_data) #skips the header
         for row in package_data:
             package_list.append(row)
         return package_list
-def nearest_neighbor(current_address, distances, addresses):
+
+def get_distance(row, column, distances):
+    distance = distances[row][column]
+    return distance
+
+def get_address_index(address, address_list):
+    address_index = address_list.index(address) + 1
+    return address_index
+def nearest_neighbor(current_address, distances, address_list):
 
     min_distance = float('inf')
-    nearest_address = None
+    nearest_address_index = 0
 
-    address_index = addresses.index(current_address)
-    address_distance_list = distances[address_index]
-    for d in address_distance_list:
-        if d == 0.0:
+    current_address_index = get_address_index(current_address, address_list)
+    for i in range(1, len(address_list)):
+        distance = get_distance(current_address_index, i, distances)
+        if float(distance) == 0:
             continue
 
-        if d == '':
-            address_index -= 1
-            address_distance_list += 1
-            if float(address_distance_list[address_index]) < float(min_distance):
-                min_distance = address_distance_list[address_index]
+        if float(distance) < float(min_distance):
+            min_distance = distance
+            nearest_address_index = i
 
-        #if float(d) < float(min_distance):
-        #    min_distance = d
+    nearest_address = address_list[nearest_address_index]
 
-    #nearest_address_index = address_distance_list.index(d)
-    #nearest_address = addresses[nearest_address_index]
-
-    return min_distance
+    return nearest_address
 
 distances_list = load_data('distances.csv')
 addresses_for_distances_list = load_data('addresses_for_distances.csv')
@@ -47,6 +48,7 @@ addresses = []
 for a in addresses_for_distances_list:
     addresses.append(a[0])
 print(addresses)
+print(get_distance(get_address_index("1060 Dalton Ave S", addresses), get_address_index("177 W Price Ave", addresses), distances_list))
 print(nearest_neighbor("1060 Dalton Ave S", distances_list, addresses))
 
 
