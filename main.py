@@ -112,6 +112,10 @@ truck3.load((package_hashmap.get_hash(40), package_hashmap.lookup("40")))
 print(truck1.packages)
 
 def deliver(truck, packages): #Parameters are truck object and package hashmap
+    for i in truck.packages:
+        p = packages.lookup(i)
+        p.update_status("In Transit")
+
     current_address = "4001 South 700 East"
     total_dist = 0
     while len(truck.packages) > 0:
