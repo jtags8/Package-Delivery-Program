@@ -56,23 +56,24 @@ package_hashmap = HashMap()
 for row in new_package_list:
     package = Package(row[0], row[1], row[2], row[3], row[4], row[5], row[6], "at the hub")
     package_hashmap.insert(row[0], package)
-    #print(str(package_hashmap.lookup(row[0])))
+    print(str(package_hashmap.lookup(row[0])))
 
 truck1 = Truck()
 truck2 = Truck()
 truck3 = Truck()
 
+#package_hashmap.lookup("1")
 
-truck1.load((package_hashmap.get_hash(1), package_hashmap.lookup("1")))
-truck1.load((package_hashmap.get_hash(4), package_hashmap.lookup("4")))
-truck1.load((package_hashmap.get_hash(13), package_hashmap.lookup("13")))
-truck1.load((package_hashmap.get_hash(14), package_hashmap.lookup("14")))
-truck1.load((package_hashmap.get_hash(15), package_hashmap.lookup("15")))
-truck1.load((package_hashmap.get_hash(16), package_hashmap.lookup("16")))
-truck1.load((package_hashmap.get_hash(19), package_hashmap.lookup("19")))
-truck1.load((package_hashmap.get_hash(20), package_hashmap.lookup("20")))
-truck1.load((package_hashmap.get_hash(34), package_hashmap.lookup("34")))
-
+#Load all 3 trucks
+truck1.load(1)
+truck1.load(4)
+truck1.load(13)
+truck1.load(14)
+truck1.load(15)
+truck1.load(16)
+truck1.load(19)
+truck1.load(20)
+truck1.load(34)
 truck2.load((package_hashmap.get_hash(2), package_hashmap.lookup("2")))
 truck2.load((package_hashmap.get_hash(3), package_hashmap.lookup("3")))
 truck2.load((package_hashmap.get_hash(5), package_hashmap.lookup("5")))
@@ -88,7 +89,6 @@ truck2.load((package_hashmap.get_hash(33), package_hashmap.lookup("33")))
 truck2.load((package_hashmap.get_hash(36), package_hashmap.lookup("36")))
 truck2.load((package_hashmap.get_hash(37), package_hashmap.lookup("37")))
 truck2.load((package_hashmap.get_hash(38), package_hashmap.lookup("38")))
-
 truck3.load((package_hashmap.get_hash(6), package_hashmap.lookup("6")))
 truck3.load((package_hashmap.get_hash(9), package_hashmap.lookup("9")))
 truck3.load((package_hashmap.get_hash(11), package_hashmap.lookup("11")))
@@ -105,3 +105,22 @@ truck3.load((package_hashmap.get_hash(32), package_hashmap.lookup("32")))
 truck3.load((package_hashmap.get_hash(35), package_hashmap.lookup("35")))
 truck3.load((package_hashmap.get_hash(39), package_hashmap.lookup("39")))
 truck3.load((package_hashmap.get_hash(40), package_hashmap.lookup("40")))
+
+#Create three lists for 8:00, 9:05, and 10:20
+#for loop to iterate through all packages, change status to delivered,
+# add distance totals after each delivery, and then back to hub
+print(truck1.packages)
+
+def deliver(truck):
+    current_address = "4001 South 700 East"
+    total_dist = 0
+    while len(truck.packages) > 0:
+        dest_address = nearest_neighbor(current_address, distances_list, addresses)
+        current_travel_dist = get_distance(get_address_index(current_address, addresses), get_address_index(dest_address, addresses), distances_list)
+        total_dist += current_travel_dist
+
+        #retrieve packages with dest_address from hashmap, change status of packages to delivered in package object, remove all IDs from truck array
+        #truck.packages.remove()
+
+    return_home_dist = get_distance(get_address_index(current_address, addresses), get_address_index("4001 South 700 East", addresses), distances_list)
+    total_dist += return_home_dist
