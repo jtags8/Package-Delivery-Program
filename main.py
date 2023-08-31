@@ -119,6 +119,7 @@ def deliver(truck):
         current_travel_dist = get_distance(get_address_index(current_address, addresses), get_address_index(dest_address, addresses), distances_list)
         total_dist += current_travel_dist
 
+
         #retrieve packages with dest_address from hashmap, change status of packages to delivered in package object, remove all IDs from truck array
         #truck.packages.remove()
 
