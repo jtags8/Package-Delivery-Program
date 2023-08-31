@@ -1,11 +1,8 @@
 import csv
 import datetime
-
-
 from HashMap import HashMap
 from Package import Package
 from Truck import Truck
-
 
 def load_data(filename):
     package_list = []
