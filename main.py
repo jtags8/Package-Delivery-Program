@@ -47,9 +47,10 @@ addresses_for_distances_list = load_data('addresses_for_distances.csv')
 addresses = []
 for a in addresses_for_distances_list:
     addresses.append(a[0])
-print(addresses)
-print(get_distance(get_address_index("1060 Dalton Ave S", addresses), get_address_index("177 W Price Ave", addresses), distances_list))
-print(nearest_neighbor("1060 Dalton Ave S", distances_list, addresses))
+
+
+#Test Function for NN
+#print(nearest_neighbor("1060 Dalton Ave S", distances_list, addresses))
 
 
 new_package_list = load_data('Packages.csv')
