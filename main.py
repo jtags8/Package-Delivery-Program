@@ -20,14 +20,14 @@ def get_distance(row, column, distances):
 def get_address_index(address, address_list):
     address_index = address_list.index(address) + 1
     return address_index
-def nearest_neighbor(current_address, distances, address_list):
+def nearest_neighbor(current_address, truck_packages, distances, address_list):
 
     min_distance = float('inf')
     nearest_address_index = 0
 
     current_address_index = get_address_index(current_address, address_list)
-    for i in range(1, len(address_list)):
-        distance = get_distance(current_address_index, i, distances)
+    for index in truck_packages:
+        distance = get_distance(current_address_index, index, distances)
         if float(distance) == 0:
             continue
 
@@ -111,17 +111,24 @@ truck3.load((package_hashmap.get_hash(40), package_hashmap.lookup("40")))
 # add distance totals after each delivery, and then back to hub
 print(truck1.packages)
 
-def deliver(truck):
+def deliver(truck, packages): #Parameters are truck object and package hashmap
     current_address = "4001 South 700 East"
     total_dist = 0
     while len(truck.packages) > 0:
-        dest_address = nearest_neighbor(current_address, distances_list, addresses)
+        dest_address = nearest_neighbor(current_address, truck.packages, distances_list, addresses)
         current_travel_dist = get_distance(get_address_index(current_address, addresses), get_address_index(dest_address, addresses), distances_list)
         total_dist += current_travel_dist
+        for i in truck.packages:
+            p = packages.lookup(i)
+            if p.get_delivery_address() == dest_address:
+                p.update_status("Delivered")
+                #Need to update time
+                truck.packages.remove(i)
 
-
-        #retrieve packages with dest_address from hashmap, change status of packages to delivered in package object, remove all IDs from truck array
-        #truck.packages.remove()
+        #retrieve packages that have dest_address, change status of packages to delivered in package object, remove all IDs from truck array
 
     return_home_dist = get_distance(get_address_index(current_address, addresses), get_address_index("4001 South 700 East", addresses), distances_list)
     total_dist += return_home_dist
+
+t = datetime.time(8,0,0)
+print(t)

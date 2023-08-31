@@ -16,6 +16,11 @@ class Package:
     def get_package_id(self):
         return self.package_id
 
+    def get_package_id_from_add(self, address):
+        if address == self.delivery_address:
+            return self.package_id
+        return None
+
     def get_delivery_address(self):
         return self.delivery_address
 
