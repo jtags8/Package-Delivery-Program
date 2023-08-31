@@ -33,7 +33,7 @@ def nearest_neighbor(current_address, truck_packages, distances, address_list):
 
         if float(distance) < float(min_distance):
             min_distance = distance
-            nearest_address_index = i
+            nearest_address_index = index
 
     nearest_address = address_list[nearest_address_index]
 
