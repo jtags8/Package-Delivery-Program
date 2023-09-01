@@ -17,6 +17,8 @@ class Package:
     def update_delivery_time(self, time):
         self.delivery_time = time
 
+    def update_delivery_address(self, address):
+        self.delivery_address = address
     def get_delivery_time(self):
         if not None:
             return self.delivery_time
