@@ -156,6 +156,8 @@ def start():
         truck1_delivery = 0
         truck2_delivery = 0
         truck3_delivery = 0
+        endtimesecs = 0
+        endtime = datetime.timedelta(seconds=endtimesecs)
         print("1 - Status of all packages at a given time")
         print("0 to exit")
 
@@ -170,6 +172,8 @@ def start():
             time_input_mins = int(input())
             print("Give the seconds")
             time_input_secs = int(input())
+            endtimesecs = time_input_hours*3600 + time_input_mins*60 + time_input_secs
+
 
             truck1_delivery = deliver(truck1, package_hashmap, 8, 0, 0, time_input_hours, time_input_mins, time_input_secs)
             truck2_delivery = deliver(truck2, package_hashmap, 8, 0, 0, time_input_hours, time_input_mins,
@@ -184,35 +188,15 @@ def start():
             truck3_total_travel_time_sec = calc_travel_time(truck3_delivery)
             truck3_total_travel_time = datetime.timedelta(seconds=truck3_total_travel_time_sec)
 
-
+        print("Status for packages as of " + str(datetime.timedelta(seconds=endtimesecs)))
         for i in range(1, 41):
             print(package_hashmap.lookup(str(i)))
 
-        print(truck1_delivery)
-        print(truck2_delivery)
-        print(truck3_delivery)
-        print(truck1_total_travel_time)
-        print(truck2_total_travel_time)
-        print(truck3_total_travel_time)
+        print("Total distance traveled for Truck 1: " + str(truck1_delivery))
+        print("Total distance traveled for Truck 2: " + str(truck2_delivery))
+        print("Total distance traveled for Truck 3: " + str(truck3_delivery))
+        print("Total time traveled for Truck 1: " + str(truck1_total_travel_time))
+        print("Total time traveled for Truck 2: " + str(truck2_total_travel_time))
+        print("Total time traveled for Truck 3: " + str(truck3_total_travel_time))
 
 start()
-
-
-# print(truck1.packages)
-# p = package_hashmap.lookup(str("1"))
-# print(p)
-# current_address_index = get_address_index("4001 South 700 East", addresses)
-# print(current_address_index)
-# target_address_i = get_address_index(p.get_delivery_address(), addresses)
-# print(target_address_i)
-# distance = get_distance(current_address_index, target_address_i, distances_list)
-# print(distance)
-# nearest_address_index = target_address_i - 1
-# print(nearest_address_index)
-# nearest_address = addresses[nearest_address_index]
-# print(nearest_address)
-# dest_address = nearest_neighbor("4001 South 700 East", truck1.packages, package_hashmap, distances_list, addresses)
-# print(dest_address)
-# truck1_delivery_distance = deliver(truck1, package_hashmap, 8, 0, 0)
-# print(truck1_delivery_distance)
-# print(calc_travel_time(truck1_delivery_distance))
