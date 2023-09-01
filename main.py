@@ -151,8 +151,8 @@ def start():
         truck3_delivery = 0
         endtimesecs = 0
         endtime = datetime.timedelta(seconds=endtimesecs)
+        print("0 - Exit")
         print("1 - Status of all packages at a given time")
-        print("0 to exit")
 
         x = input()
         if x == "0":
