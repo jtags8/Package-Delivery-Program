@@ -9,10 +9,17 @@ class Package:
         self.deadline = deadline
         self.weight = weight
         self.status = status
+        self.delivery_time = None
 
     def update_status(self, status):
         self.status = status
 
+    def update_delivery_time(self, time):
+        self.delivery_time = time
+
+    def get_delivery_time(self):
+        if not None:
+            return self.delivery_time
     def get_package_id(self):
         return self.package_id
 

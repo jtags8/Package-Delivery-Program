@@ -1,14 +1,12 @@
 class HashMap:
     def __init__(self):
-        self.size = 40
+        self.size = 10
         self.map = []
         for i in range(self.size):
             self.map.append([])
 
     def get_hash(self, key):
         package_hash = int(key)
-        #for char in str(key):
-            #package_hash += ord(char)
         return package_hash % self.size
 
     #Insert function that takes the package ID as input and inserts each of the data components of the package
