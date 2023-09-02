@@ -57,12 +57,8 @@ def nearest_neighbor(current_address, truck_packages, package_hash_list, distanc
 #O(n) time complexity
 def create_package_hashmap(package_csv_list, package_hash):
     for row in package_csv_list:
-        if row[0] == "6" or row[0] == "25" or row[0] == "28" or row[0] == "32":
-            package = Package(row[0], row[1], row[2], row[3], row[4], row[5], row[6], "Delayed on flight")
-            package_hash.insert(row[0], package)
-        else:
-            package = Package(row[0], row[1], row[2], row[3], row[4], row[5], row[6], "At the hub")
-            package_hash.insert(row[0], package)
+        package = Package(row[0], row[1], row[2], row[3], row[4], row[5], row[6], "At the hub")
+        package_hash.insert(row[0], package)
 
 distances_list = load_data('distances.csv')
 addresses_for_distances_list = load_data('addresses_for_distances.csv')
@@ -80,10 +76,48 @@ truck3 = Truck()
 
 #Load all 3 trucks
 def reset_trucks(truck1, truck2, truck3): #Parameters are truck objects
-    truck1.load(1);truck1.load(6);truck1.load(13);truck1.load(14);truck1.load(15);truck1.load(16);truck1.load(19);truck1.load(20);truck1.load(30);truck1.load(31);truck1.load(34)
-    truck2.load(2);truck2.load(3);truck2.load(4);truck2.load(5);truck2.load(7);truck2.load(8);truck2.load(10);truck2.load(18);truck2.load(22);truck2.load(24)
-    truck2.load(29);truck2.load(33);truck2.load(36);truck2.load(37);truck2.load(38)
-    truck3.load(9);truck3.load(11);truck3.load(12);truck3.load(21);truck3.load(23);truck3.load(25);truck3.load(26);truck3.load(27);truck3.load(28);truck3.load(32);truck3.load(35);truck3.load(39);truck3.load(40)
+    truck1.load(1)
+    truck1.load(7)
+    truck1.load(8)
+    truck1.load(13)
+    truck1.load(14)
+    truck1.load(15)
+    truck1.load(16)
+    truck1.load(19)
+    truck1.load(20)
+    truck1.load(21)
+    truck1.load(29)
+    truck1.load(30)
+    truck1.load(34)
+    truck1.load(37)
+
+    truck2.load(3)
+    truck2.load(5)
+    truck2.load(6)
+    truck2.load(18)
+    truck2.load(25)
+    truck2.load(26)
+    truck2.load(28)
+    truck2.load(31)
+    truck2.load(32)
+    truck2.load(36)
+    truck2.load(38)
+    truck2.load(40)
+
+    truck3.load(2)
+    truck3.load(4)
+    truck3.load(9)
+    truck3.load(10)
+    truck3.load(11)
+    truck3.load(12)
+    truck3.load(17)
+    truck3.load(22)
+    truck3.load(23)
+    truck3.load(24)
+    truck3.load(27)
+    truck3.load(33)
+    truck3.load(35)
+    truck3.load(39)
 
 def calc_travel_time(distance): #18 mph, can use for individual deliveries or total time
     time_in_seconds = (distance / 18) * 3600
@@ -91,10 +125,10 @@ def calc_travel_time(distance): #18 mph, can use for individual deliveries or to
     return time_in_seconds
 
 #Deliver function. Primary function that allows trucks to deliver packages based on nearest neighbor algorithm.
+#Returns total travel distance for the truck.
 #O(n) time complexity.
 def deliver(truck, packages, time_hr, time_min, time_sec, endtimehr, endtimemin, endtimesec): #Parameters are truck object and package hashmap and time to depart, returns total distance traveled
     time_in_seconds = (time_hr * 3600) + (time_min * 60) + time_sec
-    #time = datetime.timedelta(seconds=time_in_seconds)
     for i in truck.packages:
         p = packages.lookup(str(i))
         p.update_status("In Transit")
@@ -102,12 +136,9 @@ def deliver(truck, packages, time_hr, time_min, time_sec, endtimehr, endtimemin,
     current_address = "4001 South 700 East"
     total_dist = 0
     endtime_in_sec = (endtimehr * 3600) + (endtimemin * 60) + endtimesec
-    #end_time = datetime.timedelta(endtime_in_sec)
     delivery_time_in_sec = time_in_seconds
 
     while len(truck.packages) > 0:
-        if delivery_time_in_sec >= 32700:
-            packages.lookup(str(6)).update_status("At the hub")
 
         if delivery_time_in_sec >= 37200:
             if 9 in truck.packages:
@@ -136,6 +167,8 @@ def deliver(truck, packages, time_hr, time_min, time_sec, endtimehr, endtimemin,
 
     return total_dist
 
+#Function used to start the program
+#O(n) time complexity
 def start():
     print("Welcome to WGUPS Service! Please choose one of the following options:")
 
@@ -150,7 +183,6 @@ def start():
         truck2_delivery = 0
         truck3_delivery = 0
         endtimesecs = 0
-        endtime = datetime.timedelta(seconds=endtimesecs)
         print("0 - Exit")
         print("1 - Status of all packages at a given time")
 
@@ -169,10 +201,10 @@ def start():
 
             if endtimesecs >= 28800:
                 truck1_delivery = deliver(truck1, package_hashmap, 8, 0, 0, time_input_hours, time_input_mins, time_input_secs)
-                truck2_delivery = deliver(truck2, package_hashmap, 8, 0, 0, time_input_hours, time_input_mins,
+                truck2_delivery = deliver(truck2, package_hashmap, 9, 5, 0, time_input_hours, time_input_mins,
                                           time_input_secs)
             if endtimesecs >= 34980:
-                truck3_delivery = deliver(truck3, package_hashmap, 9, 43, 0, time_input_hours, time_input_mins,
+                truck3_delivery = deliver(truck3, package_hashmap, 10, 27, 40, time_input_hours, time_input_mins,
                                           time_input_secs)
 
             truck1_total_travel_time_sec = calc_travel_time(truck1_delivery)
