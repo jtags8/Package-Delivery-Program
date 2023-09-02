@@ -19,11 +19,6 @@ class Package:
 
     def update_delivery_address(self, address):
         self.delivery_address = address
-    def get_delivery_time(self):
-        if not None:
-            return self.delivery_time
-    def get_package_id(self):
-        return self.package_id
 
     def get_package_id_from_add(self, address):
         if address == self.delivery_address:
@@ -32,12 +27,6 @@ class Package:
 
     def get_delivery_address(self):
         return self.delivery_address
-
-    def get_deadline(self):
-        return self.deadline
-
-    def get_status(self):
-        return self.status
 
     def __str__(self) -> str:
         return (f'Package {self.package_id}: Delivery address: {self.delivery_address}, {self.city}, {self.state} {self.zipcode}, '

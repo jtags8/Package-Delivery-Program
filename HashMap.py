@@ -11,6 +11,7 @@ class HashMap:
 
     #Insert function that takes the package ID as input and inserts each of the data components of the package
     #into the hash table
+    # O(n) time complexity
     def insert(self, key, value):
         key_hash = self.get_hash(key)
         key_value = [key, value]
@@ -27,6 +28,7 @@ class HashMap:
             return True
 
     #Look-up function that takes the packageID as input and returns each of the package data components
+    #O(n) time complexity
     def lookup(self, key):
         key_hash = self.get_hash(key)
         if self.map[key_hash] is not None:

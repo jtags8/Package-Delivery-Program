@@ -121,7 +121,6 @@ def reset_trucks(truck1, truck2, truck3): #Parameters are truck objects
 
 def calc_travel_time(distance): #18 mph, can use for individual deliveries or total time
     time_in_seconds = (distance / 18) * 3600
-    #time = datetime.timedelta(seconds=time_in_seconds)
     return time_in_seconds
 
 #Deliver function. Primary function that allows trucks to deliver packages based on nearest neighbor algorithm.
@@ -191,11 +190,11 @@ def start():
             return False
 
         if x == "1":
-            print("Give the hours")
+            print("Give the hours in a 24 hr format")
             time_input_hours = int(input())
-            print("Give the minutes")
+            print("Give the amount of minutes")
             time_input_mins = int(input())
-            print("Give the seconds")
+            print("Give the amount of seconds")
             time_input_secs = int(input())
             endtimesecs = time_input_hours*3600 + time_input_mins*60 + time_input_secs
 
@@ -218,9 +217,9 @@ def start():
         for i in range(1, 41):
             print(package_hashmap.lookup(str(i)))
 
-        print("Total distance traveled for Truck 1: " + str(truck1_delivery))
-        print("Total distance traveled for Truck 2: " + str(truck2_delivery))
-        print("Total distance traveled for Truck 3: " + str(truck3_delivery))
+        print("Total distance traveled for Truck 1 in miles: " + str(truck1_delivery))
+        print("Total distance traveled for Truck 2 in miles: " + str(truck2_delivery))
+        print("Total distance traveled for Truck 3 in miles: " + str(truck3_delivery))
         print("Total time traveled for Truck 1: " + str(truck1_total_travel_time))
         print("Total time traveled for Truck 2: " + str(truck2_total_travel_time))
         print("Total time traveled for Truck 3: " + str(truck3_total_travel_time))
