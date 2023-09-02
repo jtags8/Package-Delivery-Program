@@ -1,7 +1,5 @@
 # Package-Delivery-Program
 
-https://www.youtube.com/watch?v=9HFbhPscPU0 used for Hash Table functions
-
 Section F:
 F.  Justify the package delivery algorithm used in the solution as written in the original program by doing the following:
 1.  Describe two or more strengths of the algorithm used in the solution.
