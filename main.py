@@ -76,7 +76,7 @@ truck3 = Truck()
 
 #Load all 3 trucks
 def reset_trucks(truck1, truck2, truck3): #Parameters are truck objects
-    truck1.load(1)
+    truck2.load(1)
     truck1.load(7)
     truck1.load(8)
     truck1.load(13)
@@ -97,7 +97,6 @@ def reset_trucks(truck1, truck2, truck3): #Parameters are truck objects
     truck2.load(18)
     truck2.load(25)
     truck2.load(26)
-    truck2.load(28)
     truck2.load(31)
     truck2.load(32)
     truck2.load(36)
@@ -115,6 +114,7 @@ def reset_trucks(truck1, truck2, truck3): #Parameters are truck objects
     truck3.load(23)
     truck3.load(24)
     truck3.load(27)
+    truck3.load(28)
     truck3.load(33)
     truck3.load(35)
     truck3.load(39)
@@ -204,7 +204,7 @@ def start():
                 truck2_delivery = deliver(truck2, package_hashmap, 9, 5, 0, time_input_hours, time_input_mins,
                                           time_input_secs)
             if endtimesecs >= 34980:
-                truck3_delivery = deliver(truck3, package_hashmap, 10, 27, 40, time_input_hours, time_input_mins,
+                truck3_delivery = deliver(truck3, package_hashmap, 10, 25, 40, time_input_hours, time_input_mins,
                                           time_input_secs)
 
             truck1_total_travel_time_sec = calc_travel_time(truck1_delivery)
