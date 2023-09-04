@@ -126,16 +126,19 @@ def calc_travel_time(distance): #18 mph, can use for individual deliveries or to
 #Deliver function. Primary function that allows trucks to deliver packages based on nearest neighbor algorithm.
 #Returns total travel distance for the truck.
 #O(n) time complexity.
-def deliver(truck, packages, time_hr, time_min, time_sec, endtimehr, endtimemin, endtimesec): #Parameters are truck object and package hashmap and time to depart, returns total distance traveled
-    time_in_seconds = (time_hr * 3600) + (time_min * 60) + time_sec
+def deliver(truck, packages, start_time_h, start_time_m, start_time_s, end_time_h, end_time_m, end_time_s):
+    #Parameters are truck object and package hashmap and time to depart, returns total distance traveled
+
+    start_time_in_secs = (start_time_h * 3600) + (start_time_m * 60) + start_time_s
+    total_end_time_in_secs = (end_time_h * 3600) + (end_time_m * 60) + end_time_s
     for i in truck.packages:
         p = packages.lookup(str(i))
         p.update_status("In Transit")
 
     current_address = "4001 South 700 East"
     total_dist = 0
-    endtime_in_sec = (endtimehr * 3600) + (endtimemin * 60) + endtimesec
-    delivery_time_in_sec = time_in_seconds
+
+    delivery_time_in_sec = start_time_in_secs # initial value for total delivery time
 
     while len(truck.packages) > 0:
 
@@ -151,7 +154,7 @@ def deliver(truck, packages, time_hr, time_min, time_sec, endtimehr, endtimemin,
         delivery_time_in_sec += travel_time
         delivery_time = datetime.timedelta(seconds=delivery_time_in_sec)
 
-        if delivery_time_in_sec > endtime_in_sec:
+        if delivery_time_in_sec > total_end_time_in_secs:
             return total_dist
 
         for i in truck.packages:
