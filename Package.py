@@ -28,6 +28,9 @@ class Package:
     def get_delivery_address(self):
         return self.delivery_address
 
+    def get_status(self):
+        return self.status
+
     def __str__(self) -> str:
         return (f'Package {self.package_id}: Delivery address: {self.delivery_address}, {self.city}, {self.state} {self.zipcode}, '
                 f'Deadline: {self.deadline}, Weight in kg: {self.weight}, Delivery status: {self.status}')

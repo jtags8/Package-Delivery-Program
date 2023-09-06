@@ -45,8 +45,8 @@ def nearest_neighbor(current_address, truck_packages, package_hash_list, distanc
         p = package_hash_list.lookup(str(i))
         target_address_index = get_address_index(p.get_delivery_address(), address_list)
         distance = get_distance(current_address_index, target_address_index, distances)
-        if float(distance) == 0:
-            continue
+        #if float(distance) == 0:
+            #continue
         if float(distance) < float(min_distance):
             min_distance = distance
             nearest_address_index = target_address_index - 1
@@ -76,48 +76,48 @@ truck3 = Truck()
 
 #Load all 3 trucks
 def reset_trucks(truck1, truck2, truck3): #Parameters are truck objects
-    truck2.load(1)
+    truck1.load(1)
+    truck1.load(2)
     truck1.load(7)
+    truck1.load(35)
     truck1.load(8)
     truck1.load(13)
     truck1.load(14)
+    truck1.load(27)
     truck1.load(15)
-    truck1.load(16)
     truck1.load(19)
+    truck1.load(16)
     truck1.load(20)
-    truck1.load(21)
     truck1.load(29)
     truck1.load(30)
     truck1.load(34)
-    truck1.load(37)
+    truck1.load(21)
+    truck1.load(39)
 
     truck2.load(3)
     truck2.load(5)
     truck2.load(6)
     truck2.load(18)
     truck2.load(25)
-    truck2.load(26)
+    truck2.load(37)
     truck2.load(31)
+    truck2.load(26)
     truck2.load(32)
     truck2.load(36)
     truck2.load(38)
     truck2.load(40)
+    truck2.load(9)
+    truck2.load(28)
+    truck2.load(22)
 
-    truck3.load(2)
     truck3.load(4)
-    truck3.load(9)
     truck3.load(10)
     truck3.load(11)
     truck3.load(12)
     truck3.load(17)
-    truck3.load(22)
     truck3.load(23)
     truck3.load(24)
-    truck3.load(27)
-    truck3.load(28)
     truck3.load(33)
-    truck3.load(35)
-    truck3.load(39)
 
 def calc_travel_time(distance): #18 mph, can use for individual deliveries or total time
     time_in_seconds = (distance / 18) * 3600
@@ -148,6 +148,9 @@ def deliver(truck, packages, start_time_h, start_time_m, start_time_s, end_time_
                 p.update_delivery_address("410 S State St")
 
         dest_address = nearest_neighbor(current_address, truck.packages, packages, distances_list, addresses)
+        #if current_address == dest_address:
+            # = 0
+        #else:
         current_travel_dist = float(get_distance(get_address_index(current_address, addresses), get_address_index(dest_address, addresses), distances_list))
         total_dist += current_travel_dist
         travel_time = calc_travel_time(current_travel_dist)
@@ -160,6 +163,7 @@ def deliver(truck, packages, start_time_h, start_time_m, start_time_s, end_time_
         for i in truck.packages:
             p = packages.lookup(str(i))
             if p.get_delivery_address() == dest_address:
+
                 p.update_status("Delivered at " + str(delivery_time))
                 p.update_delivery_time(delivery_time)
                 truck.packages.remove(i)
@@ -184,7 +188,7 @@ def start():
         truck1_delivery = 0
         truck2_delivery = 0
         truck3_delivery = 0
-        endtimesecs = 0
+        end_time_in_secs = 0
         print("0 - Exit")
         print("1 - Status of all packages at a given time")
 
@@ -199,13 +203,16 @@ def start():
             time_input_mins = int(input())
             print("Give the amount of seconds")
             time_input_secs = int(input())
-            endtimesecs = time_input_hours*3600 + time_input_mins*60 + time_input_secs
+            end_time_in_secs = time_input_hours*3600 + time_input_mins*60 + time_input_secs
 
-            if endtimesecs >= 28800:
+            if end_time_in_secs >= 28800:
                 truck1_delivery = deliver(truck1, package_hashmap, 8, 0, 0, time_input_hours, time_input_mins, time_input_secs)
+
+            if end_time_in_secs >= 32700:
                 truck2_delivery = deliver(truck2, package_hashmap, 9, 5, 0, time_input_hours, time_input_mins,
                                           time_input_secs)
-            if endtimesecs >= 34980:
+
+            if end_time_in_secs >= 37540:
                 truck3_delivery = deliver(truck3, package_hashmap, 10, 25, 40, time_input_hours, time_input_mins,
                                           time_input_secs)
 
@@ -216,7 +223,7 @@ def start():
             truck3_total_travel_time_sec = calc_travel_time(truck3_delivery)
             truck3_total_travel_time = datetime.timedelta(seconds=truck3_total_travel_time_sec)
 
-        print("Status for packages as of " + str(datetime.timedelta(seconds=endtimesecs)))
+        print("Status for packages as of " + str(datetime.timedelta(seconds=end_time_in_secs)))
         for i in range(1, 41):
             print(package_hashmap.lookup(str(i)))
 
