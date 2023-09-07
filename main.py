@@ -204,6 +204,7 @@ def start():
         print("2 - Status of one single package")
 
         x = input()
+
         if x == "0":
             return False
 
@@ -271,9 +272,6 @@ def start():
 
             print("Status for package " + str(package_id_input) + " as of " + str(datetime.timedelta(seconds=end_time_in_secs)))
             print(package_hashmap.lookup(str(package_id_input)))
-        else:
-            print("Invalid input. Please enter one of the following options (0, 1, 2).")
-
 
 
 start()
