@@ -35,14 +35,26 @@ H1A. Describe how each data structure identified in H1 is different from the dat
 
 -Linked lists are similar to arrays, but instead make use of pointers to denote the next piece of data or node in the list. 
 This allows the linked list data to be stored in memory at random. In contrast, HashMaps utilize storing data as key-value pairs. 
-It is typically more efficient to retrieve a specific data point with a HashMap compared to a linked list. In addition, 
+It is typically more efficient to retrieve a specific data point with a HashMap compared to a linked list because a HashMap uses 
+the key to retrieve a value, but a linked list requires sequential access of data starting from the first node. In addition, 
 HashMap uses less memory than a linked list. Linked lists data structure has an O(1) time complexity for insertion and 
 deletion at the beginning or end of the list, but it has an O(n) time complexity for any insertion, removal, or lookup function. 
-In contrast, HashMap has a O(n) time complexity as worst-case, but does have an average time complexity of O(1).
+In contrast, HashMap has a O(n) time complexity as worst-case, but does have an average time complexity of O(1) for insertion, 
+deletion, and lookup.
 -Binary search trees (BSTs) make use of a tree structure and has an ordering property. All values that are less than the 
 node are placed to the left of three, whereas all values that are greater than the node are placed to the right of the tree. 
 In contrast, the HashMap, as stated above, utilizes key-value pairs to store data. Data is retrieved by using the key to return the value.
 In practice, searching through a binary search tree is efficient because the set of data that is being searched is continuously 
 cut in half until the value is found, leading to an average time complexity of O(log n). In addition, insertion and deletion 
 has an O(log n) time complexity on average. Despite this, the worst case scenario of a BST is O(n) if the BST is unbalanced. 
-The time complexity again for a HashMap is O(n) time complexity as worst-case, but does have an average time complexity of O(1).
+The time complexity again for a HashMap is O(n) time complexity as worst-case, but does have an average time complexity 
+of O(1) for insertion, deletion, and lookup.
+
+Sources:
+
+[Joe James]. (2016, January 22). Python: Creating a HASHMAP using Lists [Video]. YouTube. 	https://www.youtube.com/watch?v=9HFbhPscPU0 
+[Chewy]. (2021, December 7). How to pull data from a CSV file in Python [Video]. YouTube. https://www.youtube.com/watch?v=9BsdhBoTvKU 
+[CodeBagel]. (2022, September 5). HashMaps in Python Tutorial - Data Structures for Coding 	Interviews [Video]. YouTube. https://www.youtube.com/watch?v=RcZsTI5h0kg
+Weru, L. (2021b, August 24). 11 animated algorithms for the traveling salesman problem. STEM Lounge. https://stemlounge.com/animated-algorithms-for-the-traveling-salesman-problem/ 
+[Brian Faure]. (2017, August 26). Python Data Structures #2: Linked List [Video]. YouTube. https://www.youtube.com/watch?v=JlMyYuY1aXU
+[Brian Faure]. (2017, September 11). Python Data Structures #5: Binary Search Tree (BST) [Video]. YouTube. https://www.youtube.com/watch?v=f5dU3xoE6ms
