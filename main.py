@@ -77,13 +77,11 @@ truck3 = Truck()
 #Load all 3 trucks
 def reset_trucks(truck1, truck2, truck3): #Parameters are truck objects
     truck1.load(1)
-    truck1.load(2)
     truck1.load(7)
-    truck1.load(35)
+    truck1.load(5)
     truck1.load(8)
     truck1.load(13)
     truck1.load(14)
-    truck1.load(27)
     truck1.load(15)
     truck1.load(19)
     truck1.load(16)
@@ -92,24 +90,23 @@ def reset_trucks(truck1, truck2, truck3): #Parameters are truck objects
     truck1.load(30)
     truck1.load(34)
     truck1.load(21)
-    truck1.load(39)
+    truck1.load(40)
+    truck1.load(37)
 
     truck2.load(3)
-    truck2.load(5)
     truck2.load(6)
     truck2.load(18)
     truck2.load(25)
-    truck2.load(37)
     truck2.load(31)
     truck2.load(26)
     truck2.load(32)
     truck2.load(36)
     truck2.load(38)
-    truck2.load(40)
-    truck2.load(9)
-    truck2.load(28)
-    truck2.load(22)
 
+    truck3.load(2)
+    truck3.load(39)
+    truck3.load(22)
+    truck3.load(35)
     truck3.load(4)
     truck3.load(10)
     truck3.load(11)
@@ -118,6 +115,9 @@ def reset_trucks(truck1, truck2, truck3): #Parameters are truck objects
     truck3.load(23)
     truck3.load(24)
     truck3.load(33)
+    truck3.load(28)
+    truck3.load(9)
+    truck3.load(27)
 
 def calc_travel_time(distance): #18 mph, can use for individual deliveries or total time
     time_in_seconds = (distance / 18) * 3600
@@ -141,21 +141,27 @@ def deliver(truck, packages, start_time_h, start_time_m, start_time_s, end_time_
     delivery_time_in_sec = start_time_in_secs # initial value for total delivery time
 
     while len(truck.packages) > 0:
-
+        print("***Next while loop iteration***")
         if delivery_time_in_sec >= 37200:
             if 9 in truck.packages:
                 p = packages.lookup(str(9))
                 p.update_delivery_address("410 S State St")
-
+        print("Current address: " + current_address)
         dest_address = nearest_neighbor(current_address, truck.packages, packages, distances_list, addresses)
+        print("Destination address: " + dest_address)
         #if current_address == dest_address:
             # = 0
         #else:
         current_travel_dist = float(get_distance(get_address_index(current_address, addresses), get_address_index(dest_address, addresses), distances_list))
+        print("Travel distance from current address to destination address: " + str(current_travel_dist))
         total_dist += current_travel_dist
+        print("Total distance so far: " + str(total_dist))
         travel_time = calc_travel_time(current_travel_dist)
+        test_time = datetime.timedelta(seconds=travel_time)
+        print("Time to travel to current dest: " + str(test_time))
         delivery_time_in_sec += travel_time
         delivery_time = datetime.timedelta(seconds=delivery_time_in_sec)
+        print("Time of delivery: " + str(delivery_time))
 
         if delivery_time_in_sec > total_end_time_in_secs:
             return total_dist
@@ -167,9 +173,13 @@ def deliver(truck, packages, start_time_h, start_time_m, start_time_s, end_time_
                 p.update_status("Delivered at " + str(delivery_time))
                 p.update_delivery_time(delivery_time)
                 truck.packages.remove(i)
+        current_address = dest_address
 
     return_home_dist = float(get_distance(get_address_index(current_address, addresses), get_address_index("4001 South 700 East", addresses), distances_list))
+    print("Current address: " + current_address)
+    print("Return to hub distance :" + str(return_home_dist))
     total_dist += return_home_dist
+    print("Total distance traveled by truck: " + str(total_dist))
 
     return total_dist
 
@@ -230,6 +240,7 @@ def start():
         print("Total distance traveled for Truck 1 in miles: " + str(truck1_delivery))
         print("Total distance traveled for Truck 2 in miles: " + str(truck2_delivery))
         print("Total distance traveled for Truck 3 in miles: " + str(truck3_delivery))
+        print("Total distance traveled for all three trucks: " + str(truck1_delivery + truck2_delivery + truck3_delivery))
         print("Total time traveled for Truck 1: " + str(truck1_total_travel_time))
         print("Total time traveled for Truck 2: " + str(truck2_total_travel_time))
         print("Total time traveled for Truck 3: " + str(truck3_total_travel_time))
