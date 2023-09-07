@@ -224,8 +224,8 @@ def start():
                 truck2_delivery = deliver(truck2, package_hashmap, 9, 5, 0, time_input_hours, time_input_mins,
                                           time_input_secs)
 
-            if end_time_in_secs >= 36340:
-                truck3_delivery = deliver(truck3, package_hashmap, 10, 5, 40, time_input_hours, time_input_mins,
+            if end_time_in_secs >= 36300:
+                truck3_delivery = deliver(truck3, package_hashmap, 10, 5, 00, time_input_hours, time_input_mins,
                                           time_input_secs)
 
             truck1_total_travel_time_sec = calc_travel_time(truck1_delivery)
